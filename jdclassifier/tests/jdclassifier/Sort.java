@@ -11,7 +11,6 @@ import java.util.Map;
 
 import com.decker.jdclassifier.JDClassifier;
 import com.decker.jdclassifier.JDClassifierException;
-import com.decker.jdclassifier.JDDocument;
 import com.decker.jdclassifier.Result;
 import com.decker.jdclassifier.StringTokenizer;
 import com.decker.jdclassifier.JDClassifier.JDParameter;
@@ -24,12 +23,13 @@ public class Sort {
 
 		JDClassifier classifier = new JDClassifier(parameters);
 
+
 		File[] files = new File(System.getProperty( "user.home" ),"/TestData/Input").listFiles();
 		for(File file : files)
 		{
 			System.out.println(String.format("File: %s", file.getName()));
 			String data = readFile(file.getAbsolutePath());
-			Result[] results = classifier.classify(new StringTokenizer(new JDDocument("something","something"),data.split("\r?\n")));
+			Result[] results = classifier.classify(new StringTokenizer(data.split("\r?\n")));
 			for(Result result :results)
 				System.out.println(String.format("Name: %s Matches: %s Score: %s Adjusted: %s", result.name,result.matches,result.scoring,result.scoring/result.matches));
 			if(results.length > 0)

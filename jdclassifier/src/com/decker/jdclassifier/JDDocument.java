@@ -13,19 +13,19 @@ public class JDDocument implements Serializable {
 	
 	public JDDocument(String name,String description)
 	{
-		this.name = name;
+		this.name = name.toLowerCase();
 		this.description = description;
 		this.maxWeight = 0;
 	}
 	JDDocument(String name,String description,int maxWeight)
 	{
-		this.name = name;
+		this.name = name.toLowerCase();
 		this.description = description;
 		this.maxWeight = maxWeight;
 	}
 	JDDocument(JDDocument document,int newWeight)
 	{
-		this(document.name,document.description,newWeight);
+		this(document.name.toLowerCase(),document.description,newWeight);
 	}
 	
     @Override

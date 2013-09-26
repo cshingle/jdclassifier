@@ -30,7 +30,7 @@ public class Training {
 			String type = file.getName().replaceAll("_.*$", "");
 			JDDocument document = classifier.createDocument(type, type);
 			String data = readFile(file.getAbsolutePath());
-			classifier.train(new StringTokenizer(document,data.split("\r?\n")));
+			classifier.train(document,new StringTokenizer(data.split("\r?\n")));
 		}
 
 		classifier.close();

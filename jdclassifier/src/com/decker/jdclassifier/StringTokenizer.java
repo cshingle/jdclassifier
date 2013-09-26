@@ -10,9 +10,9 @@ public class StringTokenizer extends AbstractTokenizer {
 	Token buffer = null;
 	int line = 0;
 	
-	public StringTokenizer(JDDocument document,String[] strings)
+	public StringTokenizer(String[] strings)
 	{
-		Pattern pattern = Pattern.compile("\\b\\w{2,32}\\b|^\\w{2,32}\\b|\\b\\w{2,32}$");
+		Pattern pattern = Pattern.compile("\\b[A-Za-z0-9_'-]{2,32}\\b|^[A-Za-z0-9_'-]{2,32}\\b|\\b[A-Za-z0-9_'-]{2,32}$");
 		for(String string : strings)
 		{
 			Matcher matcher = pattern.matcher(string);
@@ -20,7 +20,7 @@ public class StringTokenizer extends AbstractTokenizer {
 			{
 				String match = matcher.group();
 				if(!stopwords.contains(match))
-					this.tokenQueue.add(new Token(document, string.toLowerCase(), line, matcher.start()));
+					this.tokenQueue.add(new Token(string.toLowerCase(), line, matcher.start()));
 			}
 			line++;				
 		}			

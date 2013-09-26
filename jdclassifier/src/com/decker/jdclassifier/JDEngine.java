@@ -47,7 +47,7 @@ public abstract class JDEngine {
 		if(!exists)
 		{
 			this.knnMap = db.createTreeMap("KNNMap").keySerializer(BTreeKeySerializer.TUPLE4).make();
-			this.documentMap = db.createTreeMap("DocumentMap").make();
+			this.documentMap = db.createTreeMap("DocumentMap").keySerializer(BTreeKeySerializer.STRING).make();
 		}
 		else
 		{
@@ -70,9 +70,7 @@ public abstract class JDEngine {
 					break;
 			}
 		}
-		
-		increaseWeight(token.document,token.weight);
-		return token;
+		return new Token(token,this.knnMap.get(token.getKey()));
 	}
 	protected Token reduceToken(Token token)
 	{

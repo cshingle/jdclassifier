@@ -6,17 +6,20 @@ import org.mapdb.Fun;
 import org.mapdb.Fun.Tuple4;
 
 public class Token {
-	public final String document;
-	public final String artifact;
-	public final int line;
-	public final int column;
-	protected final int weight;
+	String document;
+	final String artifact;
+	final int line;
+	final int column;
+	final int weight;
 	
-	public Token(JDDocument document,String artifact,int line,int column)
+	public Token(String artifact,int line,int column)
 	{
-		this(document.name,artifact,line,column);
+		this.artifact = artifact;
+		this.line = line;
+		this.column = column;
+		this.weight = 1;
 	}
-	public Token(String documentName,String artifact, int line,int column)
+	Token(String documentName,String artifact, int line,int column)
 	{
 		this.document = documentName.toLowerCase();
 		this.artifact = artifact;
@@ -43,7 +46,7 @@ public class Token {
 
 	Fun.Tuple4<String,Integer,Integer,Object> getKey()
 	{
-		return new Fun.Tuple4<String,Integer,Integer,Object>(this.artifact, this.line, this.column,this.document);
+		return new Fun.Tuple4<String,Integer,Integer,Object>(this.artifact, this.line, this.column,this.document.toLowerCase());
 	}
 	Integer getValue()
 	{

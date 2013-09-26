@@ -10,12 +10,21 @@ public class JDClassifier extends JDEngine {
 		super(parameters);
 	}
 
-	public void train(AbstractTokenizer tokenizer)
+	public void train(JDDocument document,AbstractTokenizer tokenizer)
 	{
+		int maxWeight = 0;
 		while(tokenizer.hasNext())
 		{
-			this.setToken(tokenizer.next());
+			Token token = tokenizer.next();
+			token.document = document.name.toLowerCase();
+			
+			token = this.setToken(token);
+			
+			if(token.weight > maxWeight)
+				maxWeight = token.weight;
 		}
+		this.increaseWeight(document.name, maxWeight);
+		this.flush();
 	}
 	
 	public Result[] classify(AbstractTokenizer tokenizer) throws InterruptedException
